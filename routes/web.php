@@ -11,6 +11,8 @@
 |
 */
 
+use App\Http\Controllers\GenreController;
+
 Route::get('/', function() {
     return redirect(route('login'));
 });
@@ -22,4 +24,12 @@ Auth::routes(['verify' => false, 'reset' => false]);
 
 Route::middleware('auth')->group(function() {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('/genre', [GenreController::class, 'index'])->name('genreList');
+    Route::get('/genre/create', [GenreController::class, 'create'])->name('createGenre');
+    Route::post('/genre/create', [GenreController::class, 'store'])->name('storeGenre');
+    Route::get('/genre/edit/{genre}', [GenreController::class, 'edit'])->name('editGenre');
+    Route::post('/genre/edit/{genre}', [GenreController::class, 'update'])->name('updateGenre');
+    Route::get('/genre/delete/{genre}', [GenreController::class, 'destroy'])->name('deleteGenre');
 });
+
+
